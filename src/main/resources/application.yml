@@ -1,0 +1,13 @@
+spring:
+  config:
+    import:
+      - "./env/datasource.yml"
+      - "./env/jpa.yml"
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: ${database_username}
+    password: ${database_password}
+
+  jpa:
+    hibernate:
+      ddl-auto: ${ddl-update}
