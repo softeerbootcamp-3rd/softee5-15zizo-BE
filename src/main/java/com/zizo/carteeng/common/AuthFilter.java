@@ -1,6 +1,5 @@
-package com.zizo.carteeng.filter;
+package com.zizo.carteeng.common;
 
-import com.zizo.carteeng.domain.Member;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
