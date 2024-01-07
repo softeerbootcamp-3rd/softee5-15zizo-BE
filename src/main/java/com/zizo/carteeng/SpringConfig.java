@@ -15,6 +15,8 @@ public class SpringConfig {
         filterRegistrationBean.setOrder(1);
         filterRegistrationBean.addUrlPatterns("/*");
 
+        filterRegistrationBean.addInitParameter("excludedUrls", "POST /api/v1/members");
+
         return filterRegistrationBean;
     }
 }
