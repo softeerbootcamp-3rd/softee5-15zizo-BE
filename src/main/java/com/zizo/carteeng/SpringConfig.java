@@ -1,6 +1,6 @@
 package com.zizo.carteeng;
 
-import com.zizo.carteeng.filter.AuthFilter;
+import com.zizo.carteeng.common.AuthFilter;
 import jakarta.servlet.Filter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
