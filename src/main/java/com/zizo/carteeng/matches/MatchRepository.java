@@ -1,6 +1,6 @@
-package com.zizo.carteeng.repository;
+package com.zizo.carteeng.matches;
 
-import com.zizo.carteeng.domain.Match;
+import com.zizo.carteeng.matches.domain.Match;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

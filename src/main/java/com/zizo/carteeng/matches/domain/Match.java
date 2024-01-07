@@ -1,5 +1,6 @@
-package com.zizo.carteeng.domain;
+package com.zizo.carteeng.matches.domain;
 
+import com.zizo.carteeng.members.model.Member;
 import jakarta.persistence.*;
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
