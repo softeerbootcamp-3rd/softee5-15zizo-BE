@@ -1,7 +1,6 @@
 package com.zizo.carteeng;
 
 import com.zizo.carteeng.filter.AuthFilter;
-import com.zizo.carteeng.repository.MemoryMemberRepository;
 import jakarta.servlet.Filter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -17,10 +16,5 @@ public class SpringConfig {
         filterRegistrationBean.addUrlPatterns("/*");
 
         return filterRegistrationBean;
-    }
-
-    @Bean
-    public MemoryMemberRepository MemoryMemberRepository() {
-        return new MemoryMemberRepository();
     }
 }
