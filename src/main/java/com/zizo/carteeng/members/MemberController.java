@@ -16,20 +16,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 @RequiredArgsConstructor
 @RestController
 public class MemberController {
 
     private final MemberService memberService;
-
-    @GetMapping("/test")
-    ResponseEntity<Member> test(HttpServletRequest request) {
-        System.out.println(request.getSession().getAttribute("member_id"));
-
-        return ResponseEntity.status(HttpStatus.OK).body(null);
-    }
 
     @PostMapping("/api/v1/members")
     ResponseEntity<MemberResDto> postSignUp(@RequestBody @Valid PostSignUpReqDto body, HttpServletRequest request) {
