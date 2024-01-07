@@ -13,17 +13,17 @@ import static jakarta.persistence.GenerationType.*;
 @Entity
 @Getter
 @EntityListeners(AuditingEntityListener.class)
-public class Meetup {
+public class Match {
 
     @Id @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "meetup_id")
+    @Column(name = "match_id")
     private Long id;
 
     @OneToOne(fetch = LAZY)
-    private Member member1;
+    private Member walker;
 
     @OneToOne(fetch = LAZY)
-    private Member member2;
+    private Member driver;
 
     @CreatedDate
     private LocalDateTime createdAt;
