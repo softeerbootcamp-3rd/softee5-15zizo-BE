@@ -7,7 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-public class PostSignUpResDto  {
+public class MemberResDto {
 
     private String nickname;
 
@@ -26,7 +26,7 @@ public class PostSignUpResDto  {
     private MemberStatus status;
 
     @Builder
-    private PostSignUpResDto(String nickname, Gender gender, String info, Boolean hasCompany, String companyInfo, Boolean hasCar, LatLng location, MemberStatus status) {
+    private MemberResDto(String nickname, Gender gender, String info, Boolean hasCompany, String companyInfo, Boolean hasCar, LatLng location, MemberStatus status) {
         this.nickname = nickname;
         this.gender = gender;
         this.info = info;
@@ -37,8 +37,8 @@ public class PostSignUpResDto  {
         this.status = status;
     }
 
-    static public PostSignUpResDto of(Member member) {
-        return PostSignUpResDto.builder()
+    static public MemberResDto of(Member member) {
+        return MemberResDto.builder()
                 .nickname(member.getNickname())
                 .gender(member.getGender())
                 .info(member.getInfo())
