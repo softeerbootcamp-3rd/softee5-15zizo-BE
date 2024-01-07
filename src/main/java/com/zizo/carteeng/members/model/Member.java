@@ -1,11 +1,10 @@
-package com.zizo.carteeng.domain;
+package com.zizo.carteeng.members.model;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ColumnDefault;
 import org.locationtech.jts.geom.Point;
 
 @Entity
@@ -33,7 +32,7 @@ public class Member {
 
     private Boolean hasCar;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "geometry(Point, 4326)")
     private Point location;
 
     @Enumerated(EnumType.STRING)

@@ -1,4 +1,4 @@
-package com.zizo.carteeng.domain;
+package com.zizo.carteeng.members.model;
 
 public enum MemberStatus {
     AVAILABLE, REQUESTING, RESPONDING, MATCHED
