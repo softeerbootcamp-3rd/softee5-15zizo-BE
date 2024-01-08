@@ -40,7 +40,7 @@ public class MemberController {
         );
 
         HttpSession session = request.getSession();
-        session.setAttribute("member", member);
+        session.setAttribute("member_id", member.getId());
 
         MemberResDto response = MemberResDto.of(member);
 
@@ -51,8 +51,8 @@ public class MemberController {
     public ResponseEntity<MemberResDto> deleteReset(HttpServletRequest request) {
 
         HttpSession session = request.getSession();
-        Member member = (Member) session.getAttribute("member");
-        member = memberService.releasePartnerFromMeet(member);
+        Long memberId = (Long) session.getAttribute("member_id");
+        Member member = memberService.releasePartnerFromMeet(memberId);
 
         MemberResDto response = MemberResDto.of(member);
 
@@ -69,14 +69,14 @@ public class MemberController {
     }
 
     @PatchMapping
-    public ResponseEntity<String> getMemberRequest(@RequestBody ActionReqDto actionDto, HttpServletRequest request) {
+    public ResponseEntity<String> patchMemberStatus(@RequestBody ActionReqDto actionDto, HttpServletRequest request) {
 
         HttpSession session = request.getSession();
-        Member member = (Member) session.getAttribute("member");
+        Long memberId = (Long) session.getAttribute("member_id");
         Long partnerId = actionDto.getPartnerId();
         MemberStatusAction action = actionDto.getAction();
 
-        memberService.updateStatusByAction(action, member, partnerId);
+        memberService.updateStatusByAction(action, memberId, partnerId);
 
         return ResponseEntity.ok().body("success");
     }

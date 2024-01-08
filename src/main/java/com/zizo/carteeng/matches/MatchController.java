@@ -19,9 +19,9 @@ public class MatchController {
     @PostMapping("/{partnerId}")
     public ResponseEntity<MatchResDto> createMatch(@PathVariable long partnerId, HttpServletRequest request) {
         HttpSession session = request.getSession();
-        Member member = (Member) session.getAttribute("member");
+        Long memberId = (Long) session.getAttribute("member_id");
 
-        Match match = matchService.createMatch(member, partnerId);
+        Match match = matchService.createMatch(memberId, partnerId);
 
         MatchResDto matchResDto = MatchResDto.builder()
                 .driver(match.getDriver())

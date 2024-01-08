@@ -23,7 +23,9 @@ public class MemberService {
         return memberRepository.save(member);
     }
 
-    public Member releasePartnerFromMeet(Member member) {
+    public Member releasePartnerFromMeet(Long memberId) {
+        Member member = findById(memberId);
+
         if(member.getPartner() == null)
             throw new ErrorException(ErrorCode.NO_PARTNER);
 
@@ -48,11 +50,12 @@ public class MemberService {
     }
 
     //action에 따라 member, partner의 status, partner 변경
-    public void updateStatusByAction(MemberStatusAction action, Member member, Long partnerId) {
+    public void updateStatusByAction(MemberStatusAction action, Long memberId, Long partnerId) {
 
-        if(member.getId() == partnerId)
+        if(memberId == partnerId)
             throw new ErrorException(ErrorCode.MATCH_MYSELF);
 
+        Member member = findById(memberId);
         Member partner = findById(partnerId);
 
         if (action == MemberStatusAction.REQUEST) //나 얘 맘에들어 신청

@@ -18,7 +18,8 @@ public class MatchService {
     private final MatchRepository matchRepository;
     private final MemberService memberService;
 
-    public Match createMatch(Member member, Long partnerId) {
+    public Match createMatch(Long memberId, Long partnerId) {
+        Member member = memberService.findById(memberId);
 
         if(member.getId() == partnerId)
             throw new ErrorException(ErrorCode.MATCH_MYSELF);
