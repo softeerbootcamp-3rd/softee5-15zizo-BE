@@ -47,6 +47,18 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
+    @DeleteMapping()
+    public ResponseEntity<MemberResDto> deleteReset(HttpServletRequest request) {
+
+        HttpSession session = request.getSession();
+        Member member = (Member) session.getAttribute("member");
+        member = memberService.releasePartnerFromMeet(member);
+
+        MemberResDto response = MemberResDto.of(member);
+
+        return ResponseEntity.ok().body(response);
+    }
+
     @GetMapping("")
     public ResponseEntity<List<MemberResDto>> getMembers() {
         List<MemberResDto> response = memberService.getAllMembers().stream()
