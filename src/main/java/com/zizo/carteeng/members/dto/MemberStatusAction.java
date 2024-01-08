@@ -1,5 +1,5 @@
 package com.zizo.carteeng.members.dto;
 
 public enum MemberStatusAction {
-    REQUEST, ACCEPT, REJECT;
+    REQUEST, ACCEPT, REJECT, MEET, RESTART;
 }
