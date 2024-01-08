@@ -60,8 +60,13 @@ public class MemberController {
     }
 
     @GetMapping
-    public ResponseEntity<List<MemberResDto>> getMembers() {
-        List<MemberResDto> response = memberService.getAllMembers().stream()
+    public ResponseEntity<List<MemberResDto>> getMembers(HttpServletRequest request) {
+
+        Long memberId = (Long)request.getSession().getAttribute("member_id");
+        Boolean hasCar = memberService.findById(memberId).getHasCar(); //요청자 차 유무 조회
+
+        //뚜벅이->운전자만 조회, 운전자->뚜벅이만 조회
+        List<MemberResDto> response = memberService.getAllMembersByHasCar(!hasCar).stream()
                 .map(member -> MemberResDto.of(member))
                 .toList();
 
