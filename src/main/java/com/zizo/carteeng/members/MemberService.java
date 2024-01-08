@@ -36,7 +36,7 @@ public class MemberService {
     }
 
     //action에 따라 member, partner의 status, partner 변경
-    public void updateStatusByAction(MemberStatusAction action, Long memberId, Long partnerId) {
+    public Member updateStatusByAction(MemberStatusAction action, Long memberId, Long partnerId) {
 
         if(memberId == partnerId)
             throw new ErrorException(ErrorCode.MATCH_MYSELF);
@@ -54,6 +54,8 @@ public class MemberService {
             updateStatusByMeet(member, partner);
         else if (action == MemberStatusAction.RESTART)
             updateStatusByRestart(member, partner);
+
+        return member;
     }
 
     private void updateStatusByRequest(Member member, Member partner) {

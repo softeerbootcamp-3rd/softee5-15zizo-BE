@@ -75,13 +75,15 @@ public class MemberController {
     }
 
     @PatchMapping
-    public ResponseEntity<String> patchMemberStatus(@RequestBody ActionReqDto actionDto, @SessionAttribute(Member.KEY_COLUMN) Long memberId) {
+    public ResponseEntity<MemberResDto> patchMemberStatus(@RequestBody ActionReqDto actionDto, @SessionAttribute(Member.KEY_COLUMN) Long memberId) {
 
         Long partnerId = actionDto.getPartnerId();
         MemberStatusAction action = actionDto.getAction();
 
-        memberService.updateStatusByAction(action, memberId, partnerId);
+        Member member = memberService.updateStatusByAction(action, memberId, partnerId);
 
-        return ResponseEntity.ok().body("success");
+        MemberResDto response = MemberResDto.of(member);
+
+        return ResponseEntity.ok().body(response);
     }
 }
