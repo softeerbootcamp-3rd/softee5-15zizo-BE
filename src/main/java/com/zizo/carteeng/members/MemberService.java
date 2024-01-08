@@ -4,7 +4,6 @@ import com.zizo.carteeng.common.errors.ErrorCode;
 import com.zizo.carteeng.common.errors.ErrorException;
 import com.zizo.carteeng.members.dto.MemberStatusAction;
 import com.zizo.carteeng.members.model.Member;
-import com.zizo.carteeng.members.model.MemberStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
