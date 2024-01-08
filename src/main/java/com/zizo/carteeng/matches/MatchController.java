@@ -9,13 +9,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/matches")
 @RequiredArgsConstructor
 public class MatchController {
 
     private final MatchService matchService;
 
-    @PostMapping("/matches/{partnerId}")
+    @PostMapping("/{partnerId}")
     public ResponseEntity<MatchResDto> createMatch(@PathVariable long partnerId, HttpServletRequest request) {
         HttpSession session = request.getSession();
         Long memberId = (Long) session.getAttribute("member_id");

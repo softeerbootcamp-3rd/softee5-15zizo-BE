@@ -19,13 +19,13 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/members")
 @RequiredArgsConstructor
 public class MemberController {
 
     private final MemberService memberService;
 
-    @PostMapping("/members")
+    @PostMapping("")
     public ResponseEntity<MemberResDto> postSignUp(@RequestBody @Valid PostSignUpReqDto body, HttpServletRequest request) {
 
         Member member = memberService.createMember(
@@ -49,7 +49,7 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @GetMapping("/members")
+    @GetMapping("")
     public ResponseEntity<List<MemberResDto>> getMembers() {
         List<MemberResDto> response = memberService.getAllMembers().stream()
                 .map(member -> MemberResDto.of(member))
@@ -58,7 +58,7 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @PatchMapping("/members")
+    @PatchMapping("")
     public ResponseEntity<String> getMemberRequest(@RequestBody ActionReqDto actionDto, HttpServletRequest request) {
 
         HttpSession session = request.getSession();
