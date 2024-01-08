@@ -25,6 +25,8 @@ public class MemberService {
 
     public List<Member> getAllMembers() { return memberRepository.findAll(); }
 
+    public List<Member> getAllMembersByHasCar(Boolean hasCar) { return memberRepository.findByHasCar(hasCar); }
+
     public Member findById(Long memberId) {
         Member member = memberRepository.findById(memberId)
                 .orElseThrow(() -> new ErrorException(ErrorCode.MEMBER_NOT_FOUND));
