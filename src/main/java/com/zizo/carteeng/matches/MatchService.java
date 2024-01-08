@@ -2,6 +2,7 @@ package com.zizo.carteeng.matches;
 
 import com.zizo.carteeng.matches.domain.Match;
 import com.zizo.carteeng.members.MemberRepository;
+import com.zizo.carteeng.members.MemberService;
 import com.zizo.carteeng.members.model.Member;
 import com.zizo.carteeng.members.model.MemberStatus;
 import lombok.Builder;
@@ -16,27 +17,27 @@ public class MatchService {
 
     private final MatchRepository matchRepository;
 
-    public Match createMatch(Member member) {
+    public Match createMatch(Member member, Member partner) {
         Member driver, walker;
 
-        //운전자 구분 후, match 생성
-        if (member.getHasCar()) { //member가 운전자임
+        if (member.getHasCar()) {
             driver = member;
-            walker = member.getPartner();
-        } else { //member가 운전자가 아님
+            walker = partner;
+        } else {
+            driver = partner;
             walker = member;
-            driver = member.getPartner();
         }
+
+        // 둘 다 탑승완료로 상태 변경
+        walker.updateMemberStatus(MemberStatus.MEET);
+        driver.updateMemberStatus(MemberStatus.MEET);
+
         Match match = Match.builder()
                 .driver(driver)
                 .walker(walker)
                 .build();
+
         matchRepository.save(match);
-
-        //둘 다 탑승완료로 상태 변경
-        walker.updateMemberStatus(MemberStatus.MEET);
-        driver.updateMemberStatus(MemberStatus.MEET);
-
         return match;
     }
 }
