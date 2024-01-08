@@ -1,5 +1,6 @@
 package com.zizo.carteeng.members;
 
+import com.zizo.carteeng.members.dto.ActionReqDto;
 import com.zizo.carteeng.members.dto.MemberResDto;
 import com.zizo.carteeng.members.model.Member;
 import com.zizo.carteeng.members.dto.PostSignUpReqDto;
@@ -10,20 +11,18 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
+@RequestMapping("/api/v1")
 public class MemberController {
 
     private final MemberService memberService;
 
-    @PostMapping("/api/v1/members")
+    @PostMapping("/members")
     ResponseEntity<MemberResDto> postSignUp(@RequestBody @Valid PostSignUpReqDto body, HttpServletRequest request) {
 
         Member member = memberService.createMember(
@@ -47,12 +46,38 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @GetMapping("/api/v1/members")
+    @GetMapping("/members")
     ResponseEntity<List<MemberResDto>> getMembers() {
-        List<MemberResDto> response =  memberService.getAllMembers().stream()
+        List<MemberResDto> response = memberService.getAllMembers().stream()
                 .map(member -> MemberResDto.of(member))
                 .toList();
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
+
+    @PatchMapping("/members")
+    public ResponseEntity<String> getMemberRequest(@RequestBody ActionReqDto actionDto, HttpServletRequest request) {
+        ResponseEntity<String> response;
+
+        HttpSession session = request.getSession();
+        Long member_id = (Long) session.getAttribute("member_id");
+        Member partner = memberService.findById(actionDto.getPartnerId());
+        Member member = memberService.findById(member_id);
+
+        String action = actionDto.getAction();
+
+        if (action.equals("request")) { //나 얘 맘에들어 신청
+            memberService.updateStatusByAction(action, member, partner);
+        } else if (action.equals("reject")) { //거절 or 취소
+            memberService.updateStatusByAction(action, member, partner);
+        } else if (action.equals("accept")) { //수락
+            memberService.updateStatusByAction(action, member, partner);
+        } else { //action에 이상한 요청
+            return ResponseEntity.status(400).body("잘못된 action 요청입니다.");
+        }
+
+        response = ResponseEntity.ok().body("success");
+        return response;
+    }
+
 }
