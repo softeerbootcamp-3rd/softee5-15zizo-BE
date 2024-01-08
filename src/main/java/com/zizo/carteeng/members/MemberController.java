@@ -51,7 +51,7 @@ public class MemberController {
 
     @GetMapping("/members")
     public ResponseEntity<List<MemberResDto>> getMembers() {
-        List<MemberResDto> response =  memberService.getAllMembers().stream()
+        List<MemberResDto> response = memberService.getAllMembers().stream()
                 .map(member -> MemberResDto.of(member))
                 .toList();
 
@@ -66,7 +66,7 @@ public class MemberController {
         Long partnerId = actionDto.getPartnerId();
         MemberStatusAction action = actionDto.getAction();
 
-        if(memberId == partnerId)
+        if (memberId == partnerId)
             throw new ErrorException(ErrorCode.MATCH_MYSELF);
 
         memberService.updateStatusByAction(action, memberId, partnerId);
