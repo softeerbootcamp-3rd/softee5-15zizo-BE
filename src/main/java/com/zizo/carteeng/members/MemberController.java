@@ -1,7 +1,5 @@
 package com.zizo.carteeng.members;
 
-import com.zizo.carteeng.common.errors.ErrorCode;
-import com.zizo.carteeng.common.errors.ErrorException;
 import com.zizo.carteeng.members.dto.ActionReqDto;
 import com.zizo.carteeng.members.dto.MemberResDto;
 import com.zizo.carteeng.members.dto.MemberStatusAction;

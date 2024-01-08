@@ -1,8 +1,5 @@
-package com.zizo.carteeng.common;
+package com.zizo.carteeng.common.errors;
 
-import com.zizo.carteeng.common.errors.ErrorCode;
-import com.zizo.carteeng.common.errors.ErrorException;
-import com.zizo.carteeng.common.errors.ErrorResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
