@@ -32,7 +32,7 @@ public class Member {
 
     private Boolean hasCar;
 
-    @Column(nullable = true, columnDefinition = "geometry(Point, 4326)")
+    @Column(nullable = false, columnDefinition = "geometry(Point, 4326)")
     private Point location;
 
     @Enumerated(EnumType.STRING)
@@ -42,16 +42,15 @@ public class Member {
     @JoinColumn(name = "partner_id")
     private Member partner;
 
-    /*
     @OneToOne(mappedBy = "partner")
     private Member partnerOf;
-*/
+
     public void updateMemberStatus(MemberStatus status) {
         this.status = status;
     }
 
     @Builder
-    public Member(Long id, String nickname, Gender gender, String info, Boolean hasCompany, String companyInfo, Boolean hasCar, Point location, MemberStatus status, Member partner/*, Member partnerOf*/) {
+    public Member(Long id, String nickname, Gender gender, String info, Boolean hasCompany, String companyInfo, Boolean hasCar, Point location, MemberStatus status, Member partner, Member partnerOf) {
         this.id = id;
         this.nickname = nickname;
         this.gender = gender;
@@ -62,6 +61,6 @@ public class Member {
         this.location = location;
         this.status = status;
         this.partner = partner;
-        //this.partnerOf = partnerOf;
+        this.partnerOf = partnerOf;
     }
 }
