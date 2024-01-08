@@ -5,7 +5,6 @@ import com.zizo.carteeng.members.dto.MemberResDto;
 import com.zizo.carteeng.members.dto.MemberStatusAction;
 import com.zizo.carteeng.members.model.Member;
 import com.zizo.carteeng.members.dto.PostSignUpReqDto;
-import com.zizo.carteeng.members.model.MemberStatus;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -25,18 +24,7 @@ public class MemberController {
     @PostMapping
     public ResponseEntity<MemberResDto> postSignUp(@RequestBody @Valid PostSignUpReqDto body, HttpServletRequest request) {
 
-        Member member = memberService.createMember(
-                Member.builder()
-                        .nickname(body.getNickname())
-                        .gender(body.getGender())
-                        .info(body.getInfo())
-                        .hasCompany(body.getHasCompany())
-                        .companyInfo(body.getCompanyInfo())
-                        .hasCar(body.getHasCar())
-                        .location(body.getLocation().toPoint())
-                        .status(MemberStatus.AVAILABLE)
-                        .build()
-        );
+        Member member = memberService.createMember(body);
 
         HttpSession session = request.getSession();
         session.setAttribute(Member.KEY_COLUMN, member.getId());
