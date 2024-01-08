@@ -1,11 +1,11 @@
 package com.zizo.carteeng.matches;
 
+import com.zizo.carteeng.common.errors.ErrorCode;
+import com.zizo.carteeng.common.errors.ErrorException;
 import com.zizo.carteeng.matches.domain.Match;
-import com.zizo.carteeng.members.MemberRepository;
 import com.zizo.carteeng.members.MemberService;
 import com.zizo.carteeng.members.model.Member;
 import com.zizo.carteeng.members.model.MemberStatus;
-import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,19 +16,34 @@ import org.springframework.transaction.annotation.Transactional;
 public class MatchService {
 
     private final MatchRepository matchRepository;
+    private final MemberService memberService;
 
-    public Match createMatch(Member member, Member partner) {
+    public Match createMatch(Long memberId, Long partnerId) {
+
+        if(memberId == partnerId)
+            throw new ErrorException(ErrorCode.MATCH_MYSELF);
+
+        Member member = memberService.findById(memberId);
+        Member partner = memberService.findById(partnerId);
+
+        if(member.getPartner() != partner || partner.getPartner() != member)
+            throw new ErrorException(ErrorCode.NOT_PARTNER);
+
+        if(!(member.getStatus() == MemberStatus.MATCHED && partner.getStatus() == MemberStatus.MATCHED))
+            throw new ErrorException(ErrorCode.NOT_PARTNER);
+
         Member driver, walker;
-
-        if (member.getHasCar()) {
+        if (member.getHasCar() && !partner.getHasCar()) {
             driver = member;
             walker = partner;
-        } else {
+        }
+        else if (!member.getHasCar() && partner.getHasCar()) {
             driver = partner;
             walker = member;
         }
+        else
+            throw new ErrorException(ErrorCode.CANNOT_MATCH);
 
-        // 둘 다 탑승완료로 상태 변경
         walker.updateMemberStatus(MemberStatus.MEET);
         driver.updateMemberStatus(MemberStatus.MEET);
 
@@ -38,6 +53,7 @@ public class MatchService {
                 .build();
 
         matchRepository.save(match);
+
         return match;
     }
 }

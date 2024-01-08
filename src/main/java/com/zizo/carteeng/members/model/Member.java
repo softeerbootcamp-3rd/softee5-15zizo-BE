@@ -1,10 +1,7 @@
 package com.zizo.carteeng.members.model;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.locationtech.jts.geom.Point;
 
 @Entity
@@ -47,6 +44,9 @@ public class Member {
 
     public void updateMemberStatus(MemberStatus status) {
         this.status = status;
+    }
+    public void updateMemberPartner(Member partner) {
+        this.partner = partner; // TODO: partnerOf, partner.updateMemberPartner(this)
     }
 
     @Builder
