@@ -23,7 +23,7 @@ public class MemberController {
 
     private final MemberService memberService;
 
-    @PostMapping("")
+    @PostMapping
     public ResponseEntity<MemberResDto> postSignUp(@RequestBody @Valid PostSignUpReqDto body, HttpServletRequest request) {
 
         Member member = memberService.createMember(
@@ -47,7 +47,7 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @DeleteMapping()
+    @DeleteMapping
     public ResponseEntity<MemberResDto> deleteReset(HttpServletRequest request) {
 
         HttpSession session = request.getSession();
@@ -59,7 +59,7 @@ public class MemberController {
         return ResponseEntity.ok().body(response);
     }
 
-    @GetMapping("")
+    @GetMapping
     public ResponseEntity<List<MemberResDto>> getMembers() {
         List<MemberResDto> response = memberService.getAllMembers().stream()
                 .map(member -> MemberResDto.of(member))
@@ -68,7 +68,7 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @PatchMapping("")
+    @PatchMapping
     public ResponseEntity<String> getMemberRequest(@RequestBody ActionReqDto actionDto, HttpServletRequest request) {
 
         HttpSession session = request.getSession();
