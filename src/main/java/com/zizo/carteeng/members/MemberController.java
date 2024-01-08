@@ -47,6 +47,20 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
+    @DeleteMapping
+    public ResponseEntity<MemberResDto> postLogout(HttpServletRequest request) {
+
+        HttpSession session = request.getSession();
+        Long memberId = (Long) session.getAttribute("member_id");
+
+        session.invalidate();
+
+        Member member = memberService.findById(memberId);
+        MemberResDto response = MemberResDto.of(member);
+
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
     @GetMapping
     public ResponseEntity<List<MemberResDto>> getMembers(HttpServletRequest request) {
 
