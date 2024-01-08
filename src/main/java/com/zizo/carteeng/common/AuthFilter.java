@@ -42,7 +42,7 @@ public class AuthFilter implements Filter {
         HttpSession session = httpRequest.getSession(false);
         if(session == null || session.getAttribute("member_id") == null) {
             HttpServletResponse httpResponse = (HttpServletResponse) response;
-            httpResponse.sendError(HttpServletResponse.SC_FORBIDDEN);
+            httpResponse.sendError(HttpServletResponse.SC_FORBIDDEN); // TODO: Error Response
             return;
         }
 

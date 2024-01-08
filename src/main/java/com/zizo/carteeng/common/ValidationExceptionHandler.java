@@ -20,6 +20,6 @@ public class ValidationExceptionHandler {
             errors.put(error.getField(), error.getDefaultMessage());
         }
 
-        return ResponseEntity.badRequest().body(errors);
+        return ResponseEntity.badRequest().body(errors); // TODO: Error Response
     }
 }
