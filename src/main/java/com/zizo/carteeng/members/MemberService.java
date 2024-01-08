@@ -23,6 +23,24 @@ public class MemberService {
         return memberRepository.save(member);
     }
 
+    public Member releasePartnerFromMeet(Long memberId) {
+        Member member = findById(memberId);
+
+        if(member.getPartner() == null)
+            throw new ErrorException(ErrorCode.NO_PARTNER);
+
+        Member partner = member.getPartner();
+
+        if(!(member.getStatus() == MEET && partner.getStatus() == MEET))
+            throw new ErrorException(ErrorCode.NOT_MEET);
+
+        member.updateMemberStatus(AVAILABLE);
+        partner.updateMemberStatus(AVAILABLE);
+        partner.updateMemberPartner(null);
+        member.updateMemberPartner(null);
+        return member;
+    }
+
     public List<Member> getAllMembers() { return memberRepository.findAll(); }
 
     public List<Member> getAllMembersByHasCar(Boolean hasCar) { return memberRepository.findByHasCar(hasCar); }

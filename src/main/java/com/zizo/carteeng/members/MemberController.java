@@ -1,7 +1,5 @@
 package com.zizo.carteeng.members;
 
-import com.zizo.carteeng.common.errors.ErrorCode;
-import com.zizo.carteeng.common.errors.ErrorException;
 import com.zizo.carteeng.members.dto.ActionReqDto;
 import com.zizo.carteeng.members.dto.MemberResDto;
 import com.zizo.carteeng.members.dto.MemberStatusAction;
@@ -17,16 +15,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/members")
 @RequiredArgsConstructor
 public class MemberController {
 
     private final MemberService memberService;
 
-    @PostMapping("/members")
+    @PostMapping
     public ResponseEntity<MemberResDto> postSignUp(@RequestBody @Valid PostSignUpReqDto body, HttpServletRequest request) {
 
         Member member = memberService.createMember(
@@ -50,11 +47,23 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @GetMapping("/members")
+    @DeleteMapping
+    public ResponseEntity<MemberResDto> deleteReset(HttpServletRequest request) {
+
+        HttpSession session = request.getSession();
+        Long memberId = (Long) session.getAttribute("member_id");
+        Member member = memberService.releasePartnerFromMeet(memberId);
+
+        MemberResDto response = MemberResDto.of(member);
+
+        return ResponseEntity.ok().body(response);
+    }
+
+    @GetMapping
     public ResponseEntity<List<MemberResDto>> getMembers(HttpServletRequest request) {
 
-        Long member_id = (Long)request.getSession().getAttribute("member_id");
-        Boolean hasCar = memberService.findById(member_id).getHasCar(); //요청자 차 유무 조회
+        Long memberId = (Long)request.getSession().getAttribute("member_id");
+        Boolean hasCar = memberService.findById(memberId).getHasCar(); //요청자 차 유무 조회
 
         //뚜벅이->운전자만 조회, 운전자->뚜벅이만 조회
         List<MemberResDto> response = memberService.getAllMembersByHasCar(!hasCar).stream()
@@ -64,16 +73,13 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @PatchMapping("/members")
-    public ResponseEntity<String> getMemberRequest(@RequestBody ActionReqDto actionDto, HttpServletRequest request) {
+    @PatchMapping
+    public ResponseEntity<String> patchMemberStatus(@RequestBody ActionReqDto actionDto, HttpServletRequest request) {
 
         HttpSession session = request.getSession();
         Long memberId = (Long) session.getAttribute("member_id");
         Long partnerId = actionDto.getPartnerId();
         MemberStatusAction action = actionDto.getAction();
-
-        if (memberId == partnerId)
-            throw new ErrorException(ErrorCode.MATCH_MYSELF);
 
         memberService.updateStatusByAction(action, memberId, partnerId);
 
