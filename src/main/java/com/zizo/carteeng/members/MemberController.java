@@ -10,21 +10,19 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequiredArgsConstructor
 @RestController
+@RequestMapping("/api/v1")
+@RequiredArgsConstructor
 public class MemberController {
 
     private final MemberService memberService;
 
-    @PostMapping("/api/v1/members")
-    ResponseEntity<MemberResDto> postSignUp(@RequestBody @Valid PostSignUpReqDto body, HttpServletRequest request) {
+    @PostMapping("/members")
+    public ResponseEntity<MemberResDto> postSignUp(@RequestBody @Valid PostSignUpReqDto body, HttpServletRequest request) {
 
         Member member = memberService.createMember(
                 Member.builder()
@@ -47,8 +45,8 @@ public class MemberController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @GetMapping("/api/v1/members")
-    ResponseEntity<List<MemberResDto>> getMembers() {
+    @GetMapping("/members")
+    public ResponseEntity<List<MemberResDto>> getMembers() {
         List<MemberResDto> response =  memberService.getAllMembers().stream()
                 .map(member -> MemberResDto.of(member))
                 .toList();
