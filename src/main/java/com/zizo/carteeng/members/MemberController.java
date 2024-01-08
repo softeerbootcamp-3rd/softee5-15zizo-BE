@@ -1,6 +1,10 @@
 package com.zizo.carteeng.members;
 
+import com.zizo.carteeng.common.errors.ErrorCode;
+import com.zizo.carteeng.common.errors.ErrorException;
+import com.zizo.carteeng.members.dto.ActionReqDto;
 import com.zizo.carteeng.members.dto.MemberResDto;
+import com.zizo.carteeng.members.dto.MemberStatusAction;
 import com.zizo.carteeng.members.model.Member;
 import com.zizo.carteeng.members.dto.PostSignUpReqDto;
 import com.zizo.carteeng.members.model.MemberStatus;
@@ -52,5 +56,21 @@ public class MemberController {
                 .toList();
 
         return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @PatchMapping("/members")
+    public ResponseEntity<String> getMemberRequest(@RequestBody ActionReqDto actionDto, HttpServletRequest request) {
+
+        HttpSession session = request.getSession();
+        Long memberId = (Long) session.getAttribute("member_id");
+        Long partnerId = actionDto.getPartnerId();
+        MemberStatusAction action = actionDto.getAction();
+
+        if(memberId == partnerId)
+            throw new ErrorException(ErrorCode.MATCH_MYSELF);
+
+        memberService.updateStatusByAction(action, memberId, partnerId);
+
+        return ResponseEntity.ok().body("success");
     }
 }
