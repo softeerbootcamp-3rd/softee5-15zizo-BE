@@ -17,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1")
@@ -50,8 +51,12 @@ public class MemberController {
     }
 
     @GetMapping("/members")
-    public ResponseEntity<List<MemberResDto>> getMembers() {
-        List<MemberResDto> response = memberService.getAllMembers().stream()
+    public ResponseEntity<List<MemberResDto>> getMembers(HttpServletRequest request) {
+
+        Long member_id = (Long)request.getSession().getAttribute("member_id");
+        Boolean hasCar = memberService.findById(member_id).getHasCar(); //요청자 차 유무 조회
+
+        List<MemberResDto> response = memberService.getAllMembersByHasCar(hasCar).stream()
                 .map(member -> MemberResDto.of(member))
                 .toList();
 
