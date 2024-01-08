@@ -51,6 +51,10 @@ public class Member {
         this.partner = partner; // TODO: partnerOf, partner.updateMemberPartner(this)
     }
 
+    public Boolean isPartner(Member partner) {
+        return (getPartner() == partner && partner.getPartner() == this);
+    }
+
     @Builder
     public Member(Long id, String nickname, Gender gender, String info, Boolean hasCompany, String companyInfo, Boolean hasCar, Point location, MemberStatus status, Member partner, Member partnerOf) {
         this.id = id;
