@@ -5,12 +5,10 @@ import com.zizo.carteeng.members.dto.MemberResDto;
 import com.zizo.carteeng.members.dto.MemberStatusAction;
 import com.zizo.carteeng.members.model.Member;
 import com.zizo.carteeng.members.dto.PostSignUpReqDto;
-import com.zizo.carteeng.members.model.MemberStatus;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,25 +24,14 @@ public class MemberController {
     @PostMapping
     public ResponseEntity<MemberResDto> postSignUp(@RequestBody @Valid PostSignUpReqDto body, HttpServletRequest request) {
 
-        Member member = memberService.createMember(
-                Member.builder()
-                        .nickname(body.getNickname())
-                        .gender(body.getGender())
-                        .info(body.getInfo())
-                        .hasCompany(body.getHasCompany())
-                        .companyInfo(body.getCompanyInfo())
-                        .hasCar(body.getHasCar())
-                        .location(body.getLocation().toPoint())
-                        .status(MemberStatus.AVAILABLE)
-                        .build()
-        );
+        Member member = memberService.createMember(body);
 
         HttpSession session = request.getSession();
         session.setAttribute(Member.KEY_COLUMN, member.getId());
 
         MemberResDto response = MemberResDto.of(member);
 
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping
@@ -58,7 +45,7 @@ public class MemberController {
         Member member = memberService.findById(memberId);
         MemberResDto response = MemberResDto.of(member);
 
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping
@@ -66,12 +53,11 @@ public class MemberController {
 
         Boolean hasCar = memberService.findById(memberId).getHasCar(); //요청자 차 유무 조회
 
-        //뚜벅이->운전자만 조회, 운전자->뚜벅이만 조회
         List<MemberResDto> response = memberService.getAllMembersByHasCar(!hasCar).stream()
                 .map(member -> MemberResDto.of(member))
                 .toList();
 
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        return ResponseEntity.ok(response);
     }
 
     @PatchMapping
@@ -84,6 +70,6 @@ public class MemberController {
 
         MemberResDto response = MemberResDto.of(member);
 
-        return ResponseEntity.ok().body(response);
+        return ResponseEntity.ok(response);
     }
 }

@@ -5,7 +5,9 @@ import com.zizo.carteeng.common.errors.ErrorException;
 import com.zizo.carteeng.matches.MatchRepository;
 import com.zizo.carteeng.matches.domain.Match;
 import com.zizo.carteeng.members.dto.MemberStatusAction;
+import com.zizo.carteeng.members.dto.PostSignUpReqDto;
 import com.zizo.carteeng.members.model.Member;
+import com.zizo.carteeng.members.model.MemberStatus;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,11 +22,19 @@ public class MemberService {
     private final MemberRepository memberRepository;
     private final MatchRepository matchRepository;
 
-    public Member createMember(Member member) {
+    public Member createMember(PostSignUpReqDto body) {
+        Member member = Member.builder()
+                .nickname(body.getNickname())
+                .gender(body.getGender())
+                .info(body.getInfo())
+                .hasCompany(body.getHasCompany())
+                .companyInfo(body.getCompanyInfo())
+                .hasCar(body.getHasCar())
+                .location(body.getLocation().toPoint())
+                .status(MemberStatus.AVAILABLE)
+                .build();
         return memberRepository.save(member);
     }
-
-    public List<Member> getAllMembers() { return memberRepository.findAll(); }
 
     public List<Member> getAllMembersByHasCar(Boolean hasCar) { return memberRepository.findByHasCar(hasCar); }
 
