@@ -10,7 +10,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,7 +43,7 @@ public class MemberController {
 
         MemberResDto response = MemberResDto.of(member);
 
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        return ResponseEntity.ok(response);
     }
 
     @DeleteMapping
@@ -58,7 +57,7 @@ public class MemberController {
         Member member = memberService.findById(memberId);
         MemberResDto response = MemberResDto.of(member);
 
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping
@@ -66,12 +65,11 @@ public class MemberController {
 
         Boolean hasCar = memberService.findById(memberId).getHasCar(); //요청자 차 유무 조회
 
-        //뚜벅이->운전자만 조회, 운전자->뚜벅이만 조회
         List<MemberResDto> response = memberService.getAllMembersByHasCar(!hasCar).stream()
                 .map(member -> MemberResDto.of(member))
                 .toList();
 
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        return ResponseEntity.ok(response);
     }
 
     @PatchMapping
@@ -84,6 +82,6 @@ public class MemberController {
 
         MemberResDto response = MemberResDto.of(member);
 
-        return ResponseEntity.ok().body(response);
+        return ResponseEntity.ok(response);
     }
 }
