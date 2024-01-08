@@ -32,12 +32,11 @@ public class MemberService {
     }
 
     //action에 따라 member, partner의 status, partner 변경
-    public void updateStatusByAction(MemberStatusAction action, Long memberId, Long partnerId) {
+    public void updateStatusByAction(MemberStatusAction action, Member member, Long partnerId) {
 
-        if(memberId == partnerId)
+        if(member.getId() == partnerId)
             throw new ErrorException(ErrorCode.MATCH_MYSELF);
 
-        Member member = findById(memberId);
         Member partner = findById(partnerId);
 
         if (action == MemberStatusAction.REQUEST) //나 얘 맘에들어 신청

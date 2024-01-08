@@ -42,7 +42,7 @@ public class MemberController {
         );
 
         HttpSession session = request.getSession();
-        session.setAttribute("member_id", member.getId());
+        session.setAttribute("member", member);
 
         MemberResDto response = MemberResDto.of(member);
 
@@ -62,14 +62,11 @@ public class MemberController {
     public ResponseEntity<String> getMemberRequest(@RequestBody ActionReqDto actionDto, HttpServletRequest request) {
 
         HttpSession session = request.getSession();
-        Long memberId = (Long) session.getAttribute("member_id");
+        Member member = (Member) session.getAttribute("member");
         Long partnerId = actionDto.getPartnerId();
         MemberStatusAction action = actionDto.getAction();
 
-        if (memberId == partnerId)
-            throw new ErrorException(ErrorCode.MATCH_MYSELF);
-
-        memberService.updateStatusByAction(action, memberId, partnerId);
+        memberService.updateStatusByAction(action, member, partnerId);
 
         return ResponseEntity.ok().body("success");
     }
