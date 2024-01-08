@@ -36,8 +36,6 @@ public class MemberService {
         return memberRepository.save(member);
     }
 
-    public List<Member> getAllMembers() { return memberRepository.findAll(); }
-
     public List<Member> getAllMembersByHasCar(Boolean hasCar) { return memberRepository.findByHasCar(hasCar); }
 
     public Member findById(Long memberId) {
