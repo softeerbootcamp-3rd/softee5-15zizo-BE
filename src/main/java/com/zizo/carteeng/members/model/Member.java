@@ -9,8 +9,10 @@ import org.locationtech.jts.geom.Point;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member {
 
+    public static final String KEY_COLUMN = "member_id";
+
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "member_id")
+    @Column(name = KEY_COLUMN)
     private Long id;
 
     @Column(nullable = false)

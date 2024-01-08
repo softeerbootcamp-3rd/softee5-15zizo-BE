@@ -40,7 +40,7 @@ public class MemberController {
         );
 
         HttpSession session = request.getSession();
-        session.setAttribute("member_id", member.getId());
+        session.setAttribute(Member.KEY_COLUMN, member.getId());
 
         MemberResDto response = MemberResDto.of(member);
 
@@ -51,7 +51,7 @@ public class MemberController {
     public ResponseEntity<MemberResDto> postLogout(HttpServletRequest request) {
 
         HttpSession session = request.getSession();
-        Long memberId = (Long) session.getAttribute("member_id");
+        Long memberId = (Long) session.getAttribute(Member.KEY_COLUMN);
 
         session.invalidate();
 
@@ -62,9 +62,8 @@ public class MemberController {
     }
 
     @GetMapping
-    public ResponseEntity<List<MemberResDto>> getMembers(HttpServletRequest request) {
+    public ResponseEntity<List<MemberResDto>> getMembers(@SessionAttribute(Member.KEY_COLUMN) Long memberId) {
 
-        Long memberId = (Long)request.getSession().getAttribute("member_id");
         Boolean hasCar = memberService.findById(memberId).getHasCar(); //요청자 차 유무 조회
 
         //뚜벅이->운전자만 조회, 운전자->뚜벅이만 조회
@@ -76,10 +75,8 @@ public class MemberController {
     }
 
     @PatchMapping
-    public ResponseEntity<String> patchMemberStatus(@RequestBody ActionReqDto actionDto, HttpServletRequest request) {
+    public ResponseEntity<String> patchMemberStatus(@RequestBody ActionReqDto actionDto, @SessionAttribute(Member.KEY_COLUMN) Long memberId) {
 
-        HttpSession session = request.getSession();
-        Long memberId = (Long) session.getAttribute("member_id");
         Long partnerId = actionDto.getPartnerId();
         MemberStatusAction action = actionDto.getAction();
 

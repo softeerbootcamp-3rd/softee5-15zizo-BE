@@ -1,5 +1,6 @@
 package com.zizo.carteeng.common;
 
+import com.zizo.carteeng.members.model.Member;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -40,7 +41,7 @@ public class AuthFilter implements Filter {
         }
 
         HttpSession session = httpRequest.getSession(false);
-        if(session == null || session.getAttribute("member_id") == null) {
+        if(session == null || session.getAttribute(Member.KEY_COLUMN) == null) {
             HttpServletResponse httpResponse = (HttpServletResponse) response;
             httpResponse.sendError(HttpServletResponse.SC_FORBIDDEN); // TODO: Error Response
             return;
