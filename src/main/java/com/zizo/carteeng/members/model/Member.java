@@ -42,6 +42,13 @@ public class Member {
     @OneToOne(mappedBy = "partner")
     private Member partnerOf;
 
+    @Column(name = "image")
+    private String imageUrl;
+
+    public void updateImage(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     public void updateMemberStatus(MemberStatus status) {
         this.status = status;
     }
