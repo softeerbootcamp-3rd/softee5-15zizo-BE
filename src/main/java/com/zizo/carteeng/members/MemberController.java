@@ -72,4 +72,11 @@ public class MemberController {
 
         return ResponseEntity.ok(response);
     }
+
+    @GetMapping("/me")
+    public ResponseEntity<MemberResDto> getMe(@SessionAttribute(Member.KEY_COLUMN) Long memberId) {
+        Member member = memberService.findById(memberId);
+        MemberResDto response = MemberResDto.of(member);
+        return ResponseEntity.ok(response);
+    }
 }
