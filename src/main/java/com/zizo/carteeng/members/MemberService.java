@@ -25,6 +25,7 @@ public class MemberService {
         Member member = Member.builder()
                 .nickname(body.getNickname())
                 .gender(body.getGender())
+                .age(body.getAge())
                 .info(body.getInfo())
                 .hasCompany(body.getHasCompany())
                 .companyInfo(body.getCompanyInfo())

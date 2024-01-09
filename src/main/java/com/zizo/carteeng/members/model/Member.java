@@ -25,6 +25,9 @@ public class Member {
     private String info;
 
     @Column(nullable = false)
+    private Integer age;
+
+    @Column(nullable = false)
     private Boolean hasCompany = false;
 
     private String companyInfo;
@@ -63,10 +66,10 @@ public class Member {
     }
 
     @Builder
-    public Member(Long id, String nickname, Gender gender, String info, Boolean hasCompany, String companyInfo, Boolean hasCar, Point location, MemberStatus status, Member partner, Member partnerOf) {
-        this.id = id;
+    public Member(String nickname, Gender gender, Integer age, String info, Boolean hasCompany, String companyInfo, Boolean hasCar, Point location, MemberStatus status, Member partner, Member partnerOf) {
         this.nickname = nickname;
         this.gender = gender;
+        this.age = age;
         this.info = info;
         this.hasCompany = hasCompany;
         this.companyInfo = companyInfo;
