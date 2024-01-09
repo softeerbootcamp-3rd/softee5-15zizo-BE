@@ -36,10 +36,10 @@ public class MemberController {
 
         HttpSession session = request.getSession();
         Long memberId = (Long) session.getAttribute(Member.KEY_COLUMN);
+        Member member = memberService.deleteMember(memberId);
 
         session.invalidate();
 
-        Member member = memberService.findById(memberId); // TODO: logout
         MemberResDto response = MemberResDto.of(member);
 
         return ResponseEntity.ok(response);
@@ -50,7 +50,7 @@ public class MemberController {
 
         Boolean hasCar = memberService.findById(memberId).getHasCar();
 
-        List<MemberResDto> response = memberService.getAllMembersByHasCar(!hasCar).stream()
+        List<MemberResDto> response = memberService.getAllAvailableMembersByHasCar(!hasCar).stream()
                 .map(member -> MemberResDto.of(member))
                 .toList();
 

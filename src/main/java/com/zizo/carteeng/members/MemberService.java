@@ -36,7 +36,18 @@ public class MemberService {
         return memberRepository.save(member);
     }
 
-    public List<Member> getAllMembersByHasCar(Boolean hasCar) { return memberRepository.findByHasCar(hasCar); }
+    public Member deleteMember(Long memberId) {
+
+        Member member = findById(memberId);
+
+        member.updateMemberStatus(MemberStatus.DELETED);
+
+        return member;
+    }
+
+    public List<Member> getAllAvailableMembersByHasCar(Boolean hasCar) {
+        return memberRepository.findByHasCarAndStatus(hasCar, MemberStatus.AVAILABLE);
+    }
 
     public Member findById(Long memberId) {
         Member member = memberRepository.findById(memberId)
