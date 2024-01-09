@@ -3,6 +3,7 @@ spring:
     import:
       - "./env/datasource.yml"
       - "./env/jpa.yml"
+      - "./env/s3.yml"
   datasource:
     driver-class-name: org.h2.Driver
     url: ${database_url}
@@ -12,3 +13,16 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create
+cloud:
+  aws:
+    s3:
+      bucket: ${aws_bucket}
+    credentials:
+      access-key: ${aws_accessKey}
+      secret-key: ${aws_secretKey}
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+
+
