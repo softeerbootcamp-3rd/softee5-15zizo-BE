@@ -1,6 +1,8 @@
 
 package com.zizo.carteeng.image;
 
+import com.zizo.carteeng.common.errors.ErrorCode;
+import com.zizo.carteeng.common.errors.ErrorException;
 import com.zizo.carteeng.members.MemberService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -13,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 
 @RestController
-@RequestMapping("/img")
+@RequestMapping("api/v1/img")
 @RequiredArgsConstructor
 public class ImageController {
 
@@ -34,6 +36,8 @@ public class ImageController {
     @GetMapping("/{memberId}") //눌러진 멤버
     public ResponseEntity<String> getImage(@PathVariable Long memberId) {
         String imageUrl = memberService.findById(memberId).getImageUrl();
+        if(imageUrl==null)
+            throw new ErrorException(ErrorCode.IMAGE_NOT_FOUND);
         return ResponseEntity.ok().body(imageUrl);
     }
 
