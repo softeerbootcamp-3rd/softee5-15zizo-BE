@@ -27,6 +27,6 @@ public class LatLng {
     }
 
     static public LatLng fromPoint(Point point) {
-        return new LatLng(point.getY(), point.getX());
+        return new LatLng(point.getX(), point.getY());
     }
 }
