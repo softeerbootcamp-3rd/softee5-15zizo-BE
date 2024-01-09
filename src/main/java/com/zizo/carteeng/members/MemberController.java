@@ -42,7 +42,7 @@ public class MemberController {
 
         session.invalidate();
 
-        Member member = memberService.findById(memberId);
+        Member member = memberService.findById(memberId); // TODO: logout
         MemberResDto response = MemberResDto.of(member);
 
         return ResponseEntity.ok(response);
@@ -51,7 +51,7 @@ public class MemberController {
     @GetMapping
     public ResponseEntity<List<MemberResDto>> getMembers(@SessionAttribute(Member.KEY_COLUMN) Long memberId) {
 
-        Boolean hasCar = memberService.findById(memberId).getHasCar(); //요청자 차 유무 조회
+        Boolean hasCar = memberService.findById(memberId).getHasCar();
 
         List<MemberResDto> response = memberService.getAllMembersByHasCar(!hasCar).stream()
                 .map(member -> MemberResDto.of(member))
