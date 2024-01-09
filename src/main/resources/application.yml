@@ -36,3 +36,6 @@ server:
       cookie:
         same-site: none
         secure: true
+
+env-variable:
+  client-url: https://softeerbootcamp-3nd.github.io/softee5-15zizo-FE/
