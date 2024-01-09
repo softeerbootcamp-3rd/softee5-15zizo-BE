@@ -5,9 +5,22 @@ import jakarta.servlet.Filter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-public class SpringConfig {
+public class SpringConfig implements WebMvcConfigurer {
+
+    @Override
+    public void addCorsMappings(final CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOrigins("*") // FIXME:
+                .allowedMethods("POST", "GET", "OPTIONS", "DELETE", "PATCH")
+                .allowedHeaders("*")
+                .allowCredentials(true)
+                .maxAge(3000);
+    }
+
     @Bean
     public FilterRegistrationBean authFilter() {
         FilterRegistrationBean<Filter> filterRegistrationBean = new FilterRegistrationBean<>();

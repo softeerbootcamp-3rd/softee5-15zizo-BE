@@ -5,6 +5,7 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.http.HttpMethod;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -35,7 +36,7 @@ public class AuthFilter implements Filter {
         String method = httpRequest.getMethod();
         String path = httpRequest.getServletPath();
 
-        if(excludedUrls.contains(new UrlPath(method, path))) {
+        if(HttpMethod.OPTIONS.equals(method) || excludedUrls.contains(new UrlPath(method, path))) {
             chain.doFilter(request, response);
             return;
         }

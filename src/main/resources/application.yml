@@ -30,3 +30,9 @@ cloud:
     stack:
       auto: false
 
+server:
+  servlet:
+    session:
+      cookie:
+        same-site: none
+        secure: true
