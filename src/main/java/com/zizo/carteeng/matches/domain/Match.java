@@ -1,7 +1,8 @@
-package com.zizo.carteeng.domain;
+package com.zizo.carteeng.matches.domain;
 
+import com.zizo.carteeng.members.model.Member;
 import jakarta.persistence.*;
-import lombok.Getter;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -13,19 +14,26 @@ import static jakarta.persistence.GenerationType.*;
 @Entity
 @Getter
 @EntityListeners(AuditingEntityListener.class)
-public class Meetup {
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class Match {
 
     @Id @GeneratedValue(strategy = IDENTITY)
-    @Column(name = "meetup_id")
+    @Column(name = "match_id")
     private Long id;
 
     @OneToOne(fetch = LAZY)
-    private Member member1;
+    private Member walker;
 
     @OneToOne(fetch = LAZY)
-    private Member member2;
+    private Member driver;
 
     @CreatedDate
     private LocalDateTime createdAt;
+
+    @Builder
+    public Match(Member walker, Member driver) {
+        this.walker = walker;
+        this.driver = driver;
+    }
 
 }

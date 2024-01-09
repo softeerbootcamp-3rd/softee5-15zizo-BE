@@ -3,6 +3,7 @@ spring:
     import:
       - "./env/datasource.yml"
       - "./env/jpa.yml"
+      - "./env/s3.yml"
   datasource:
     driver-class-name: org.h2.Driver
     url: ${database_url}
@@ -12,3 +13,26 @@ spring:
   jpa:
     hibernate:
       ddl-auto: create
+  servlet:
+    multipart:
+      max-file-size: 10MB # 업로드된 파일에 대한 최대 허용 크기
+      max-request-size: 10MB   # multipart/form-data 요청에 대한 최대 허용 크기
+
+cloud:
+  aws:
+    s3:
+      bucket: ${aws_bucket}
+    credentials:
+      access-key: ${aws_accessKey}
+      secret-key: ${aws_secretKey}
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+
+server:
+  servlet:
+    session:
+      cookie:
+        same-site: none
+        secure: true
