@@ -9,6 +9,8 @@ import lombok.Getter;
 @Getter
 public class MemberResDto {
 
+    private  Long id;
+
     private String nickname;
 
     private Gender gender;
@@ -26,7 +28,8 @@ public class MemberResDto {
     private MemberStatus status;
 
     @Builder
-    private MemberResDto(String nickname, Gender gender, String info, Boolean hasCompany, String companyInfo, Boolean hasCar, LatLng location, MemberStatus status) {
+    private MemberResDto(Long id, String nickname, Gender gender, String info, Boolean hasCompany, String companyInfo, Boolean hasCar, LatLng location, MemberStatus status) {
+        this.id = id;
         this.nickname = nickname;
         this.gender = gender;
         this.info = info;
@@ -39,6 +42,7 @@ public class MemberResDto {
 
     static public MemberResDto of(Member member) {
         return MemberResDto.builder()
+                .id(member.getId())
                 .nickname(member.getNickname())
                 .gender(member.getGender())
                 .info(member.getInfo())
