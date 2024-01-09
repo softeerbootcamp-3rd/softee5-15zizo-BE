@@ -1,10 +1,7 @@
 package com.zizo.carteeng.members;
 
-import com.zizo.carteeng.members.dto.ActionReqDto;
-import com.zizo.carteeng.members.dto.MemberResDto;
-import com.zizo.carteeng.members.dto.MemberStatusAction;
+import com.zizo.carteeng.members.dto.*;
 import com.zizo.carteeng.members.model.Member;
-import com.zizo.carteeng.members.dto.PostSignUpReqDto;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -74,9 +71,12 @@ public class MemberController {
     }
 
     @GetMapping("/me")
-    public ResponseEntity<MemberResDto> getMe(@SessionAttribute(Member.KEY_COLUMN) Long memberId) {
+    public ResponseEntity<MeResDto> getMe(@SessionAttribute(Member.KEY_COLUMN) Long memberId) {
+
         Member member = memberService.findById(memberId);
-        MemberResDto response = MemberResDto.of(member);
+
+        MeResDto response = MeResDto.of(member);
+
         return ResponseEntity.ok(response);
     }
 }
