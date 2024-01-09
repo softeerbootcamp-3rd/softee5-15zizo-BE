@@ -36,7 +36,7 @@ public class AuthFilter implements Filter {
         String method = httpRequest.getMethod();
         String path = httpRequest.getServletPath();
 
-        if(HttpMethod.OPTIONS.equals(method) || excludedUrls.contains(new UrlPath(method, path))) {
+        if(HttpMethod.OPTIONS.name().equals(method) || excludedUrls.contains(new UrlPath(method, path))) {
             chain.doFilter(request, response);
             return;
         }
