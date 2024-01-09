@@ -2,8 +2,7 @@ package com.zizo.carteeng.members;
 
 import com.zizo.carteeng.common.errors.ErrorCode;
 import com.zizo.carteeng.common.errors.ErrorException;
-import com.zizo.carteeng.matches.MatchRepository;
-import com.zizo.carteeng.matches.domain.Match;
+import com.zizo.carteeng.matches.MatchService;
 import com.zizo.carteeng.members.dto.MemberStatusAction;
 import com.zizo.carteeng.members.dto.PostSignUpReqDto;
 import com.zizo.carteeng.members.model.Member;
@@ -19,8 +18,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MemberService {
 
+    private final MatchService matchService;
     private final MemberRepository memberRepository;
-    private final MatchRepository matchRepository;
 
     public Member createMember(PostSignUpReqDto body) {
         Member member = Member.builder()
@@ -54,16 +53,8 @@ public class MemberService {
 
         action.apply(member, partner);
 
-        if(action == MemberStatusAction.MEET) {
-            Member driver = member.getHasCar() ? member : partner;
-
-            Match match = Match.builder()
-                    .driver(driver)
-                    .walker(driver.getPartner())
-                    .build();
-
-            matchRepository.save(match);
-        }
+        if(action == MemberStatusAction.MEET)
+            matchService.createMatch(member, partner);
 
         return member;
     }
