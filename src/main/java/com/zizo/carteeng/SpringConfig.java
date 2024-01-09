@@ -2,6 +2,7 @@ package com.zizo.carteeng;
 
 import com.zizo.carteeng.common.AuthFilter;
 import jakarta.servlet.Filter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,10 +12,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class SpringConfig implements WebMvcConfigurer {
 
+    @Value("${env-variable.client-url}")
+    private String CLIENT_URL;
+
     @Override
     public void addCorsMappings(final CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("*") // FIXME:
+                .allowedOrigins(CLIENT_URL)
                 .allowedMethods("POST", "GET", "OPTIONS", "DELETE", "PATCH")
                 .allowedHeaders("*")
                 .allowCredentials(true)
