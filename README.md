@@ -45,3 +45,12 @@
 ![Slack](https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=Slack&logoColor=white)
 ![Notion](https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=Notion&logoColor=white)
 ![Figma](https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white)
+
+</br>
+
+## 팀원
+| 기획 | 디자인 | 개발(FE) | 개발(FE) | 개발(BE) | 개발(BE) |
+|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
+| <img src="https://github.com/Seomin-ju.png" width="150" height="150"> | <img src="https://github.com/bestkhp.png" width="150" height="150"> | <img src="https://github.com/junhea.png" width="150" height="150"> | <img src="https://github.com/chjih.png" width="150" height="150"> | <img src="https://github.com/eekrwl.png" width="150" height="150"> | <img src="https://github.com/thecloer.png" width="150" height="150"> |
+| [@Seomin-ju](https://github.com/Seomin-ju) | [@bestkhp](https://github.com/bestkhp) | [@junhea](https://github.com/junhea) | [@chjih](https://github.com/chjih) | [@eekrwl](https://github.com/eekrwl) | [@thecloer](https://github.com/thecloer) |
+| 서민주 | 박건희 | 홍정희 | 천지홍 | 안채완 | 최석규 |
