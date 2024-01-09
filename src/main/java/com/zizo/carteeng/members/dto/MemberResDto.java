@@ -15,6 +15,8 @@ public class MemberResDto {
 
     private Gender gender;
 
+    private Integer age;
+
     private String info;
 
     private Boolean hasCompany;
@@ -28,10 +30,11 @@ public class MemberResDto {
     private MemberStatus status;
 
     @Builder
-    private MemberResDto(Long id, String nickname, Gender gender, String info, Boolean hasCompany, String companyInfo, Boolean hasCar, LatLng location, MemberStatus status) {
+    private MemberResDto(Long id, String nickname, Gender gender, Integer age, String info, Boolean hasCompany, String companyInfo, Boolean hasCar, LatLng location, MemberStatus status) {
         this.id = id;
         this.nickname = nickname;
         this.gender = gender;
+        this.age = age;
         this.info = info;
         this.hasCompany = hasCompany;
         this.companyInfo = companyInfo;
@@ -45,6 +48,7 @@ public class MemberResDto {
                 .id(member.getId())
                 .nickname(member.getNickname())
                 .gender(member.getGender())
+                .age(member.getAge())
                 .info(member.getInfo())
                 .hasCompany(member.getHasCompany())
                 .companyInfo(member.getCompanyInfo())
