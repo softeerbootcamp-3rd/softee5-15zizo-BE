@@ -1,0 +1,5 @@
+aws_accessKey:
+aws_secretKey:
+aws_bucket:
+aws_region:
+aws_stack_auto:
