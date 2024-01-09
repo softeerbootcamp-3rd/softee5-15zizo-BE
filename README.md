@@ -51,6 +51,6 @@
 ## 팀원
 | 기획 | 디자인 | 개발(FE) | 개발(FE) | 개발(BE) | 개발(BE) |
 |:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
-| <img src="https://github.com/Seomin-ju.png" width="100" height="100"> | <img src="https://github.com/bestkhp.png" width="100" height="100"> | <img src="https://github.com/junhea.png" width="100" height="100"> | <img src="https://github.com/chjih.png" width="100" height="100"> | <img src="https://github.com/eekrwl.png" width="100" height="100"> | <img src="https://github.com/thecloer.png" width="100" height="100"> |
+| <img src="https://github.com/bestkhp.png" width="100" height="100"> | <img src="https://github.com/Seomin-ju.png" width="100" height="100"> | <img src="https://github.com/junhea.png" width="100" height="100"> | <img src="https://github.com/chjih.png" width="100" height="100"> | <img src="https://github.com/eekrwl.png" width="100" height="100"> | <img src="https://github.com/thecloer.png" width="100" height="100"> |
 | [@Seomin-ju](https://github.com/Seomin-ju) | [@bestkhp](https://github.com/bestkhp) | [@junhea](https://github.com/junhea) | [@chjih](https://github.com/chjih) | [@eekrwl](https://github.com/eekrwl) | [@thecloer](https://github.com/thecloer) |
-| 서민주 | 박건희 | 홍정희 | 천지홍 | 안채완 | 최석규 |
+| 박건희 | 서민주 | 홍정희 | 천지홍 | 안채완 | 최석규 |
