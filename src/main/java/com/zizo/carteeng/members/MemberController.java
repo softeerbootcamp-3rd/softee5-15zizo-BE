@@ -16,6 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MemberController {
 
+    private final Integer SESSION_TTL = 60;
     private final MemberService memberService;
 
     @PostMapping
@@ -25,6 +26,8 @@ public class MemberController {
 
         HttpSession session = request.getSession();
         session.setAttribute(Member.KEY_COLUMN, member.getId());
+
+        session.setMaxInactiveInterval(SESSION_TTL);
 
         MemberResDto response = MemberResDto.of(member);
 
